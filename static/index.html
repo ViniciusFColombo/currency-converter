@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-80">
+    <meta name ="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Inteligence</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Currency Inteligence Dashboard</h1>
+            <p>Real-time Euro to BRL monitoring</p>
+        </header>
+
+        <main>
+            <div class="card">
+                <label for="amount">Amount to Convert:</label>
+                <input type="number" id="amount" placeholder="Ex: 100.00">
+                <label>From:</label>
+                <select id="from_currency">
+                    <option value="EUR">Euro (€)</option>
+                    <option value="USD">Dollar ($)</option>
+                    <option value="BRL">Real (R$)</option>
+                </select>
+                <label>To:</label>
+                <select id="to_currency">
+                    <option value="EUR">Euro (€)</option>
+                    <option value="USD">Dollar ($)</option>
+                    <option value="BRL">Real (R$)</option>
+                </select>
+                <button id="refresh-btn">Save to History</button>
+            </div>
+
+            <div class="result-container">
+                <p>Converted Value:</p>
+                <h2 id="result-display">
+                    <span id="currency-symbol">R$</span>
+                    <span id="converted-value">0,00</span>
+                </h2>
+            </div>
+
+            <div class="card">
+                <h3>Rate Variation (Last 10 updates)</h3>
+                <canvas id="currencyChart"></canvas>
+            </div>
+
+            <section class="history-section">
+                <h3>Last Updates</h3>
+                <ul id="history-list"></ul>
+            </section>
+        </main>
+    </div>
+    <script src="/static/script.js"></script>
+</body>
+</html>
