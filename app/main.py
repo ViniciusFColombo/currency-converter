@@ -1,10 +1,8 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
-from app.database import engine
-from app import routes, models
+from app import routes
 
-models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Currency Intelligence Dasboard")
 

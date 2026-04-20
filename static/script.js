@@ -24,10 +24,12 @@ async function convertCurrency() {
     }
     
     const val = parseFloat(amountInput.value);
+    const from = fromSelect.value;
+    const to = toSelect.value;
     if (isNaN(val) || val <= 0) return;
     
     try {
-        const response = await fetch("/prices");
+        const response = await fetch(`/prices?from_curr=${from}&to_curr=${to}`);
         const data = await response.json();
         const rate = data.rate;
         const converted = val * rate;
