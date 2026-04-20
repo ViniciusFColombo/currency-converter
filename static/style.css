@@ -21,6 +21,11 @@ body {
     text-align: left;
 }
 
+.card canvas{
+    max-height: 300px;
+    width: 100% !important;
+}
+
 .result-container {
     width: 100%;
     background-color: #e8f4fd;

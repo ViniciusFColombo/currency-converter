@@ -11,7 +11,7 @@
     <div class="container">
         <header>
             <h1>Currency Inteligence Dashboard</h1>
-            <p>Real-time Euro to BRL monitoring</p>
+            <p>Currency converter</p>
         </header>
 
         <main>
@@ -26,9 +26,9 @@
                 </select>
                 <label>To:</label>
                 <select id="to_currency">
-                    <option value="EUR">Euro (€)</option>
-                    <option value="USD">Dollar ($)</option>
                     <option value="BRL">Real (R$)</option>
+                    <option value="USD">Dollar ($)</option>
+                    <option value="EUR">Euro (€)</option>
                 </select>
                 <button id="refresh-btn">Save to History</button>
             </div>
@@ -42,7 +42,7 @@
             </div>
 
             <div class="card">
-                <h3>Rate Variation (Last 10 updates)</h3>
+                <h3>Rate Variation</h3>
                 <canvas id="currencyChart"></canvas>
             </div>
 
@@ -53,5 +53,6 @@
         </main>
     </div>
     <script src="/static/script.js"></script>
+
 </body>
 </html>

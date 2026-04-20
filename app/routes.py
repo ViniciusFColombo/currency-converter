@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from app.services import fetch_currency_data
+import requests
 
 
 router = APIRouter()
@@ -21,3 +22,15 @@ def get_prices(from_curr: str = "EUR", to_curr: str = "BRL"):
         "to": to_curr,
         "rate": rate
     }
+
+@router.get("/history/{from_curr}/{to_curr}")
+async def get_currency_history(from_curr: str, to_curr: str):
+    pair = f"{from_curr}-{to_curr}"
+    url = f"https://economia.awesomeapi.com.br/json/daily/{pair}/7"
+
+    try:
+        response = requests.get(url)
+        data = response.json()
+        return data[::-1]
+    except Exception as e:
+        return {"error": str(e)}
