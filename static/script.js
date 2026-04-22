@@ -11,6 +11,7 @@ const fromSelect = document.getElementById("from_currency");
 const toSelect = document.getElementById("to_currency");
 const resultValue = document.getElementById("converted-value");
 const refreshBtn = document.getElementById("refresh-btn");
+const processChange = debounce(() => convertCurrency());
 
 
 function updateSymbol() {
@@ -119,9 +120,45 @@ async function updateChart(from, to) {
                 }
             }
         });
+
+        generateAIInsight(prices, from, to);
     } catch (error) {
-        console.error("Error loading chart:", error);
+        console.error("Error loading chart and insight:", error);
     }
+}
+
+function generateAIInsight(prices, from, to) {
+    const todayPrice = prices[prices.length - 1];
+    const yesterdayPrice = prices[prices.length - 2];
+
+    const sum = prices.reduce((a, b) => a + b, 0);
+    const avg = sum / prices.length;
+
+    let message = "";
+    let color = "";
+
+    if (todayPrice < avg) {
+        message = `<b>AI Insight:</b> Good time to buy <b>${from}</b>. It's currently below the weekly average.`;
+        color = "#27ae60";
+    } else if (todayPrice > avg * 1.05) {
+        message = `<b>AI Insight:</b> <b>${from}</b> is quite high today. Maybe wait for a dip before buying`;
+        color = "#e67e22";
+    } else {
+        message = `<b>AI Insight:</b> <b>${from}</b> is stable compared to the weekly trend`;
+        color = "#34495e";
+    }
+
+    const insightElement = document.getElementById("ai-insight");
+    insightElement.innerHTML = message;
+    insightElement.style.borderLeft = `5px solid ${color}`;
+}
+
+function debounce(func, timeout = 300) {
+    let timer;
+    return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => { func.apply(this, args); }, timeout);
+    };
 }
 
 refreshBtn.addEventListener("click", () => {
@@ -135,8 +172,11 @@ refreshBtn.addEventListener("click", () => {
     }
 });
 
-amountInput.addEventListener("input", convertCurrency);
-fromSelect.addEventListener("change", convertCurrency);
+amountInput.addEventListener("input", processChange);
+fromSelect.addEventListener("change", () => {    
+    convertCurrency();
+    updateChart(fromSelect.value, toSelect.value);
+});
 toSelect.addEventListener("change", () => {
     updateSymbol();    
     convertCurrency();

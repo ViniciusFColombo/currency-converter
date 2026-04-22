@@ -48,6 +48,10 @@ body {
     margin: 20px 0;
 }
 
+#ai-insight {
+    transition: all 0.3s ease;
+}
+
 input, select {
     width: 100%;
     padding: 12px;
