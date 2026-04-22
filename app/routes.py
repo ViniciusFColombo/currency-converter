@@ -2,19 +2,16 @@ from fastapi import APIRouter
 from app.services import fetch_currency_data
 import requests
 
-
 router = APIRouter()
 
 @router.get("/prices")
 def get_prices(from_curr: str = "EUR", to_curr: str = "BRL"):
     data = fetch_currency_data()
-
     pair = f"{from_curr}{to_curr}"
 
-    if pair not in data:
+    if not data or pair not in data:
         return {"error": "Pair not found"}, 400
     
-
     rate = float(data[pair]["bid"])
     
     return {
@@ -31,6 +28,16 @@ async def get_currency_history(from_curr: str, to_curr: str):
     try:
         response = requests.get(url)
         data = response.json()
-        return data[::-1]
+
+        if isinstance(data, list):
+            return data[::-1]
+        
+        pair_clean = pair.replace("-", "")
+        if isinstance(data, dict) and pair_clean in data:
+            return data[pair_clean][::-1]
+
+        return []
+
     except Exception as e:
-        return {"error": str(e)}
+        print(f"Erro no fetch de histórico: {e}")
+        return []

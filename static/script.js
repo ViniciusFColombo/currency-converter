@@ -74,7 +74,17 @@ function renderHistory() {
 async function updateChart(from, to) {
     try {
         const response = await fetch(`/history/${from}/${to}`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const data = await response.json();
+
+        if (!Array.isArray(data)) {
+            console.error("Data received is not an array:", data);
+            return;
+        }
 
         const labels = data.map(item => {
             const date = new Date(item.timestamp * 1000);
