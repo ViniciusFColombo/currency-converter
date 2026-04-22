@@ -1,5 +1,8 @@
 # Currency Intelligence Dashboard 💹
 
+![Demonstração do Projeto](./Conversor_site.png)
+
+
 [Español](#-español) | [English](#-english) | [Português](#-português)
 
 ---
