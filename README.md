@@ -69,3 +69,11 @@ Um Dashboard financeiro Full-Stack que oferece conversão de moedas em tempo rea
 1. Clone the repository:
    ```bash
    git clone [https://github.com/ViniciusFColombo/currency-converter.git](https://github.com/ViniciusFColombo/currency-converter.git)
+2. Install Python dependencies:
+   ```bash
+   pip install fastapi uvicorn requests
+3. Run the server:
+   ```bash
+   uvicorn main:app --reload
+4. Access http://127.0.0.1:8000 in your browser.
+   
